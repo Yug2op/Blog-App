@@ -1,8 +1,15 @@
-# React + Vite
+# 📝 Blog App  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack **blogging platform** built with **React** and **Appwrite**. Users can create, edit, and delete blog posts with a rich text editor. The app provides authentication, image uploads, and a modern UI with **Tailwind CSS**.  
 
-Currently, two official plugins are available:
+## 🚀 Features  
+- User authentication (Signup/Login)  
+- Create, edit, and delete blog posts  
+- Image uploads using Appwrite storage  
+- Rich text editor for blog content  
+- Responsive UI with Tailwind CSS  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Tech Stack  
+- **Frontend:** React, Tailwind CSS  
+- **Backend:** Appwrite (Database, Authentication, Storage)  
+
