@@ -1,0 +1,162 @@
+body {
+  background-color: #2D3748;
+  /*Dark background&*/
+  color: #F7FAFC;
+  /* Light text color for better contrast */
+  font-family: 'Arial', sans-serif;
+  /* Clean sans-serif font */
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
+}
+
+/* Global link styles */
+a {
+  color: #63B3ED;
+  /* Tailwind's light blue for links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  /* Underline links on hover */
+}
+
+/* Container Styles */
+.container {
+  width: 100%;
+  max-width: 64rem;
+  /* Tailwind's max-width for container */
+  margin: 0 auto;
+  padding: 0 1rem;
+  /* Add padding for spacing */
+}
+
+/* Button Styles */
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #3182CE;
+  /* Tailwind's blue */
+  color: #FFFFFF;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+button:hover {
+  background-color: #2B6CB0;
+  /* Slightly darker blue on hover */
+}
+
+/* Input and Select Styles */
+input,
+select {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background-color: #EDF2F7;
+  /* Light gray background for inputs */
+  color: #2D3748;
+  /* Dark text color */
+  border: 1px solid #E2E8F0;
+  /* Light border color */
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: #3182CE;
+  /* Blue border on focus */
+  outline: none;
+  background-color: #E2E8F0;
+  /* Slightly darker background on focus */
+}
+
+/* Textarea (RTE) Styles */
+textarea {
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  background-color: #EDF2F7;
+  color: #2D3748;
+  border: 1px solid #E2E8F0;
+  width: 100%;
+}
+
+textarea:focus {
+  border-color: #3182CE;
+  background-color: #E2E8F0;
+}
+
+/* Form Label Styles */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #E2E8F0;
+  /* Light color for labels */
+}
+
+/* Form Spacing */
+form {
+  margin-top: 2rem;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.text-red-600 {
+  color: #E53E3E;
+  /* Tailwind's red */
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.space-y-5 {
+  margin-top: 1.25rem;
+}
+
+.bg-gray-100 {
+  background-color: #EDF2F7;
+  /* Light gray background */
+}
+
+.bg-gray-500 {
+  background-color: #6B7280;
+  /* Medium gray background */
+}
+
+.rounded-xl {
+  border-radius: 1rem;
+  /* Rounded corners */
+}
+
+/* Flexbox Helpers */
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.mr-4 {
+  margin-right: 1rem;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}

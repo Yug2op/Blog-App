@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ensure the body background and text color are set globally */
+body {
+    background-color: #2D3748;
+    /* Darker grey background */
+    color: #0e2a3c;
+    font-family: 'Arial', sans-serif;
+    /* Define a system font */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    /* Ensure the body covers full height */
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Smooth scrolling */
+}
+
+/* Optional: Set the root font size for accessibility */
+:root {
+    font-size: 16px;
+}
