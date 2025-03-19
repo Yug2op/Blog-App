@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Controller } from "react-hook-form";
+import conf from "../conf/conf";
 
 export default function RTE({
   name,
@@ -34,7 +35,7 @@ export default function RTE({
             }`}
           >
             <Editor
-              apiKey="cy85hlutqpe70ov7iorc2yiazhditizrwaht86p390m4i8ea"
+              apiKey = {conf.rteApiKey }
               initialValue={defaultValue}
               init={{
                 height: 500,
