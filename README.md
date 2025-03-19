@@ -38,11 +38,15 @@ Blog App is a simple and efficient blogging platform built using **React** and *
 - **Comments & reactions for blogs**  
 - **SEO-friendly URLs & metadata**  
 
+## 🎓 Learning Source  
+This project was built while learning from the **ChaiAurCode** YouTube channel. 🚀
+I have improved some existing features and introduced new ones, such as a dedicated section for users to view their own posts. Additionally, the homepage now displays posts, but the documents within them cannot be accessed directly from there.
+
 ## 🤝 Contributing  
 Contributions are welcome! Feel free to **fork** this repo and submit a pull request.  
 
 ## 👨‍💻 Contributors  
-**[Your Name]** – Creator & Developer  
+**[Yugank Tripathi]** – Creator & Developer 
 **ChatGPT** – Assisted with documentation  
 
 ---
