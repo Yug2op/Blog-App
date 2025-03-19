@@ -46,9 +46,5 @@ I have improved some existing features and introduced new ones, such as a dedica
 Contributions are welcome! Feel free to **fork** this repo and submit a pull request.  
 
 ## 👨‍💻 Contributors  
-**[Yugank Tripathi]** – Creator & Developer 
-**ChatGPT** – Assisted with documentation  
-
----
-
-Let me know if you need modifications! 🚀🔥  
+**[Yugank Tripathi]** – Creator & Developer
+**ChatGPT** – Assisted with documentation   
