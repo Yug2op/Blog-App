@@ -31,15 +31,23 @@ function Home() {
     };
 
     return (
-        <div className='w-full py-8'>
+        <div className='w-full py-8 bg-gray-400'>
             <Container>
-                <div className='flex flex-wrap'>
-                    {posts.map((post) => (
-                        <div key={post.$id} className='p-2 w-1/4'>
-                            <PostCard {...post} onClick={() => handlePostClick(post.$id)} />
-                        </div>
-                    ))}
-                </div>
+                {posts.length > 0 ? (
+                    <div className='flex flex-wrap'>
+                        {posts.map((post) => (
+                            <div key={post.$id} className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
+                                <PostCard {...post} onClick={() => handlePostClick(post.$id)} />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className='flex justify-center items-center py-16'>
+                        <p className='text-xl font-semibold text-gray-400'>
+                            Searching for posts... Please wait.
+                        </p>
+                    </div>
+                )}
             </Container>
         </div>
     );

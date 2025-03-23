@@ -1,143 +1,86 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import Logo from '../Logo'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Logo from '../Logo';
 
 function Footer() {
-  return (
-    <section className="relative overflow-hidden py-10 bg-gray-400 border border-t-2 border-t-black">
-            <div className="relative z-10 mx-auto max-w-7xl px-4">
-                <div className="-m-6 flex flex-wrap">
-                    <div className="w-full p-6 md:w-1/2 lg:w-5/12">
-                        <div className="flex h-full flex-col justify-between">
+    return (
+        <footer className="relative overflow-hidden py-10 bg-gray-800 text-gray-300 border-t border-gray-700">
+            <div className="relative z-10 mx-auto max-w-7xl px-6">
+                <div className="flex flex-wrap -m-4">
+
+                    {/* Logo & Copyright */}
+                    <div className="w-full p-4 md:w-1/2 lg:w-5/12">
+                        <div className="flex flex-col justify-between h-full">
                             <div className="mb-4 inline-flex items-center">
                                 <Logo width="100px" />
                             </div>
-                            <div>
-                                <p className="text-sm text-gray-600">
-                                    &copy; Copyright 2025. All Rights Reserved by Yug2op.
-                                </p>
-                            </div>
+                            <p className="text-sm md:text-base text-gray-400">
+                                &copy; 2025 Yug2op. All Rights Reserved.
+                            </p>
                         </div>
                     </div>
-                    <div className="w-full p-6 md:w-1/2 lg:w-2/12">
-                        <div className="h-full">
-                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
-                                Company
-                            </h3>
-                            <ul>
-                                <li className="mb-4">
+
+                    {/* Company Links */}
+                    <div className="w-full p-4 md:w-1/2 lg:w-2/12">
+                        <h3 className="mb-4 text-base md:text-lg font-semibold uppercase text-gray-400">
+                            Company
+                        </h3>
+                        <ul className="space-y-2">
+                            {["Features", "Pricing", "Affiliate Program", "Press Kit"].map((item, index) => (
+                                <li key={index}>
                                     <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
                                         to="/"
+                                        className="text-sm md:text-base font-medium text-gray-300 hover:text-white transition duration-200"
                                     >
-                                        Features
+                                        {item}
                                     </Link>
                                 </li>
-                                <li className="mb-4">
-                                    <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
-                                    >
-                                        Pricing
-                                    </Link>
-                                </li>
-                                <li className="mb-4">
-                                    <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
-                                    >
-                                        Affiliate Program
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
-                                    >
-                                        Press Kit
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                            ))}
+                        </ul>
                     </div>
-                    <div className="w-full p-6 md:w-1/2 lg:w-2/12">
-                        <div className="h-full">
-                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
-                                Support
-                            </h3>
-                            <ul>
-                                <li className="mb-4">
+
+                    {/* Support Links */}
+                    <div className="w-full p-4 md:w-1/2 lg:w-2/12">
+                        <h3 className="mb-4 text-base md:text-lg font-semibold uppercase text-gray-400">
+                            Support
+                        </h3>
+                        <ul className="space-y-2">
+                            {["Account", "Help", "Contact Us", "Customer Support"].map((item, index) => (
+                                <li key={index}>
                                     <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
                                         to="/"
+                                        className="text-sm md:text-base font-medium text-gray-300 hover:text-white transition duration-200"
                                     >
-                                        Account
+                                        {item}
                                     </Link>
                                 </li>
-                                <li className="mb-4">
-                                    <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
-                                    >
-                                        Help
-                                    </Link>
-                                </li>
-                                <li className="mb-4">
-                                    <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
-                                    >
-                                        Contact Us
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
-                                    >
-                                        Customer Support
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                            ))}
+                        </ul>
                     </div>
-                    <div className="w-full p-6 md:w-1/2 lg:w-3/12">
-                        <div className="h-full">
-                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
-                                Legals
-                            </h3>
-                            <ul>
-                                <li className="mb-4">
+
+                    {/* Legal Links */}
+                    <div className="w-full p-4 md:w-1/2 lg:w-3/12">
+                        <h3 className="mb-4 text-base md:text-lg font-semibold uppercase text-gray-400">
+                            Legals
+                        </h3>
+                        <ul className="space-y-2">
+                            {["Terms & Conditions", "Privacy Policy", "Licensing"].map((item, index) => (
+                                <li key={index}>
                                     <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
                                         to="/"
+                                        className="text-sm md:text-base font-medium text-gray-300 hover:text-white transition duration-200"
                                     >
-                                        Terms &amp; Conditions
+                                        {item}
                                     </Link>
                                 </li>
-                                <li className="mb-4">
-                                    <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
-                                    >
-                                        Privacy Policy
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        className=" text-base font-medium text-gray-900 hover:text-gray-700"
-                                        to="/"
-                                    >
-                                        Licensing
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                            ))}
+                        </ul>
                     </div>
+
                 </div>
             </div>
-        </section>
-  )
+        </footer>
+    );
 }
 
-export default Footer
+export default Footer;

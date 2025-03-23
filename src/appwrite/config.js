@@ -16,6 +16,8 @@ export class Service {
 
     async createPost({ title, slug, content, featuredImage, status, userId }) {
         try {
+            console.log("Creating post with data:", { title, slug, content, featuredImage, status, userId });
+            
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
@@ -30,6 +32,7 @@ export class Service {
             );
         }
         catch (err) {
+            console.error('Error creating post:', err);
             throw err
             
         }

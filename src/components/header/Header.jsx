@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Container, Logo, LogoutBtn } from '../index';
-import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { Container, Logo, LogoutBtn } from "../index";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -9,12 +9,11 @@ function Header() {
   const location = useLocation();
 
   const navItems = [
-    { name: 'Home', slug: '/' },
-    { name: 'Login', slug: '/login', active: !authStatus },
-    { name: 'Signup', slug: '/signup', active: !authStatus },
-    // { name: 'All Posts', slug: '/all-posts', active: authStatus },
-    { name: 'Add Post', slug: '/add-post', active: authStatus },
-    { name: 'My Post', slug: '/my-post', active: authStatus },
+    { name: "Home", slug: "/" },
+    { name: "Login", slug: "/login", active: !authStatus },
+    { name: "Signup", slug: "/signup", active: !authStatus },
+    { name: "Add Post", slug: "/add-post", active: authStatus },
+    { name: "My Post", slug: "/my-post", active: authStatus },
   ];
 
   const toggleMenu = () => {
@@ -24,36 +23,37 @@ function Header() {
   return (
     <header className="bg-gradient-to-r from-blue-500 to-indigo-900 text-white shadow-md">
       <Container>
-        <nav className="flex items-center justify-between py-1 ">
-          {/* Logo */}
+        <nav className="flex items-center justify-between py-3 px-4 md:px-6 relative">
+
+          {/* Logo (Left) */}
           <div className="flex items-center">
             <Link to="/">
-              <Logo width="70px" />
-            </Link>
-          </div>
-          <div className="flex items-center">
-            <Link to="/">
-              <h2 className='text-2xl font-bold text-pink-400 hover:text-pink-600 transition-colors duration-200'
-              >Blog App</h2>
+              <Logo width="50px" className="sm:w-16 md:w-20" />
             </Link>
           </div>
 
-          {/* Navigation Links */}
-          <ul className="hidden md:flex space-x-6 ">
+          {/* Blog App Title (Centered) */}
+          <div className="flex-1 text-center">
+            <Link to="/">
+              <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-pink-400 hover:text-pink-600 transition-colors duration-200">
+                Blog App
+              </h2>
+            </Link>
+          </div>
+
+          {/* Desktop Navigation Links (Right) */}
+          <ul className="hidden md:flex space-x-5 lg:space-x-7">
             {navItems.map(
               (item) =>
                 (item.active === undefined || item.active) && (
                   <li key={item.name}>
                     <Link
                       to={item.slug}
-                      
-                      className={`text-lg font-medium pb-1 transition-colors duration-200 
-                        ${
-                          location.pathname === item.slug
-                            ? 'text-red-500'
-                            : 'text-white hover:text-blue-300'
-                        }
-                      `}
+                      className={`pb-1 transition-colors duration-200 text-base lg:text-lg font-medium ${
+                        location.pathname === item.slug
+                          ? "text-red-400 border-b-2 border-red-400"
+                          : "text-white hover:text-blue-300"
+                      }`}
                     >
                       {item.name}
                     </Link>
@@ -70,7 +70,7 @@ function Header() {
           {/* Mobile Menu Toggle Button */}
           <div className="md:hidden">
             <button
-              className="text-white hover:text-indigo-300"
+              className="text-white hover:text-indigo-300 outline-none focus:outline-none active:bg-transparent focus:bg-transparent"
               aria-label="Open Menu"
               onClick={toggleMenu}
             >
@@ -82,22 +82,27 @@ function Header() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </button>
           </div>
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <ul className="absolute top-16 right-0 bg-gray-800 text-white w-full p-4 space-y-4 z-50">
+            <ul className="absolute top-14 right-2 bg-gray-800 text-white w-56 p-4 rounded-lg shadow-lg space-y-3 z-50">
               {navItems.map(
                 (item) =>
                   (item.active === undefined || item.active) && (
                     <li key={item.name}>
                       <Link
                         to={item.slug}
-                        className="block text-lg font-medium no-underline hover:text-indigo-300 transition-colors duration-500"
-                        onClick={() => setIsMenuOpen(false)} // Close menu on link click
+                        className="block text-base md:text-lg font-medium hover:text-indigo-300 transition-colors duration-500"
+                        onClick={() => setIsMenuOpen(false)}
                       >
                         {item.name}
                       </Link>

@@ -15,27 +15,28 @@ export default function PostForm({ post }) {
         },
     });
 
-
     const navigate = useNavigate();
-    const userData = useSelector((state) => state.auth.userData);
+    const userData = useSelector((state) => state.auth.userData.userData);
+    
 
     const submit = async (data) => {
         let fileId = null;
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
+             console.log(file);
+             
 
             if (file) {
                 appwriteService.deleteFile(post.featuredImage);
                 fileId = file.$id;
             } else {
-                // If no new image is uploaded, keep the old file ID
                 fileId = post.featuredImage;
             }
 
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
                 featuredImage: fileId,
-                userId: userData.$id
+                userId: userData.$id,
             });
 
             if (dbPost) {
@@ -78,33 +79,34 @@ export default function PostForm({ post }) {
     }, [watch, slugTransform, setValue]);
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
+        <form onSubmit={handleSubmit(submit)} className="flex flex-col sm:flex-row w-full px-4 sm:px-2">
+            {/* Left Section (Title, Slug, Content) */}
+            <div className="w-full sm:w-2/3 px-2">
                 <Input
                     label="Title :"
                     placeholder="Title"
-                    className="mb-4"
+                    className="mb-4 text-sm sm:text-base"
                     {...register("title", { required: true })}
                 />
                 <Input
                     label="Slug :"
                     placeholder="Slug"
-                    className="mb-4"
+                    className="mb-4 text-sm sm:text-base"
                     disabled
                     {...register("slug", { required: true })}
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
                     }}
                 />
-
-
                 <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
             </div>
-            <div className="w-1/3 px-2">
+
+            {/* Right Section (Image, Status, Submit Button) */}
+            <div className="w-full sm:w-1/3 px-2 mt-4 sm:mt-0">
                 <Input
                     label="Featured Image :"
                     type="file"
-                    className="mb-4"
+                    className="mb-4 text-sm sm:text-base"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
@@ -113,17 +115,17 @@ export default function PostForm({ post }) {
                         <img
                             src={appwriteService.getFilePreview(post.featuredImage)}
                             alt={post.title}
-                            className="rounded-lg"
+                            className="rounded-lg w-full h-auto max-h-60 object-cover"
                         />
                     </div>
                 )}
                 <Select
                     options={["active", "inactive"]}
                     label="Status:"
-                    className="mb-4"
+                    className="mb-4 text-sm sm:text-base"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
+                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full text-sm sm:text-base">
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>

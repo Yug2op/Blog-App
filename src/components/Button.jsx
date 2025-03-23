@@ -12,7 +12,7 @@ export default function Button({
     return (
         <button
             type={type}
-            className={`px-4 py-2 rounded-lg ${bgColor} ${hoverBgColor} ${textColor} ${className} transition-colors duration-200`}
+            className={`px-4 py-2 md:px-5 md:py-3 rounded-lg text-sm md:text-base font-medium ${bgColor} ${hoverBgColor} ${textColor} ${className} transition-colors duration-200 ease-in-out`}
             {...props}
         >
             {children}

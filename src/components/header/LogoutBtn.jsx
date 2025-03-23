@@ -14,15 +14,17 @@ function LogoutBtn() {
   };
 
   return (
-    
     <button
-      className="flex items-center px-3  bg-red-500 text-white font-semibold 
-                 rounded-full shadow-md hover:bg-red-600 hover:shadow-lg 
-                 active:bg-red-700 focus:outline-none focus:ring-2 
-                 focus:ring-red-400 focus:ring-offset-2 transition duration-200"
+      className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-red-500 
+                 text-white font-semibold rounded-full shadow-md 
+                 hover:bg-red-600 hover:shadow-lg active:bg-red-700 
+                 focus:outline-none focus:ring-2 focus:ring-red-400 
+                 transition duration-200"
       onClick={logoutHandler}
+      aria-label="Logout"
     >
-      Logout <FiLogOut className="ml-2" />
+      <span className="hidden sm:inline">Logout</span>
+      <FiLogOut className="text-lg sm:text-xl" />
     </button>
   );
 }

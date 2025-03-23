@@ -27,40 +27,47 @@ function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-900">
-      <div className="mx-auto w-full max-w-lg bg-gray-800 rounded-xl p-10 border border-gray-700 shadow-lg">
+    <div className="flex items-center justify-center min-h-screen px-4 sm:px-6 lg:px-8 bg-gray-900">
+      <div className="mx-auto w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl bg-gray-800 rounded-xl p-8 sm:p-10 md:p-12 border border-gray-700 shadow-lg">
+        
+        {/* Logo */}
         <div className="mb-4 flex justify-center">
-          <span className="inline-block w-full max-w-[100px]">
+          <span className="inline-block w-20 sm:w-24 md:w-28">
             <Logo width="100%" />
           </span>
         </div>
-        <h2 className="text-center text-2xl font-bold text-gray-100 leading-tight">
+
+        {/* Title & Subtitle */}
+        <h2 className="text-center text-xl sm:text-2xl md:text-3xl font-bold text-gray-100">
           Sign up to create an account
         </h2>
-        <p className="mt-2 text-center text-base text-gray-400">
+        <p className="mt-2 text-center text-sm sm:text-base text-gray-400">
           Already have an account?&nbsp;
           <Link
             to="/login"
-            className="font-medium text-blue-400 transition-all duration-200 hover:underline"
+            className="font-medium text-blue-400 transition-all duration-200 hover:text-blue-500"
           >
             Sign In
           </Link>
         </p>
-        {error && <p className="text-red-500 mt-8 text-center">{error}</p>}
 
+        {/* Error Message */}
+        {error && <p className="text-red-500 mt-4 text-center text-sm sm:text-base">{error}</p>}
+
+        {/* Signup Form */}
         <form onSubmit={handleSubmit(create)} className="mt-6">
-          <div className="space-y-5">
+          <div className="space-y-4 sm:space-y-5">
             <Input
-              label="Full Name: "
+              label="Full Name:"
               placeholder="Enter your full name"
-              className="bg-gray-700 text-gray-200 placeholder-gray-400"
+              className="bg-gray-700 text-gray-200 placeholder-gray-400 px-4 py-2 sm:py-3"
               {...register('name', { required: true })}
             />
             <Input
-              label="Email: "
+              label="Email:"
               placeholder="Enter your email"
               type="email"
-              className="bg-gray-700 text-gray-200 placeholder-gray-400"
+              className="bg-gray-700 text-gray-200 placeholder-gray-400 px-4 py-2 sm:py-3"
               {...register('email', {
                 required: true,
                 validate: {
@@ -71,15 +78,16 @@ function Signup() {
               })}
             />
             <Input
-              label="Password: "
+              label="Password:"
               type="password"
               placeholder="Enter your password"
-              className="bg-gray-700 text-gray-200 placeholder-gray-400"
+              className="bg-gray-700 text-gray-200 placeholder-gray-400 px-4 py-2 sm:py-3"
               {...register('password', { required: true })}
             />
+
             <Button
               type="submit"
-              className="w-full bg-blue-600 text-gray-100 hover:bg-blue-700"
+              className="w-full bg-blue-600 text-gray-100 hover:bg-blue-700 transition-all duration-200 py-2 sm:py-3 text-sm sm:text-base font-medium"
             >
               Create Account
             </Button>
