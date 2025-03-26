@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
 import appwriteService from "../../appwrite/config";
@@ -16,14 +16,15 @@ export default function PostForm({ post }) {
     });
 
     const navigate = useNavigate();
-    const userData = useSelector((state) => state.auth.userData.userData);    
-    
+    const userData = useSelector((state) => state.auth.userData.userData);
+    const [loading, setLoading] = useState(false); // ✅ Add loading state
 
     const submit = async (data) => {
+        setLoading(true); // ✅ Show loading when submitting
+
         let fileId = null;
         if (post) {
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;             
-
+            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
             if (file) {
                 appwriteService.deleteFile(post.featuredImage);
                 fileId = file.$id;
@@ -53,6 +54,8 @@ export default function PostForm({ post }) {
                 }
             }
         }
+
+        setLoading(false); // ✅ Hide loading after completion
     };
 
     const slugTransform = useCallback((value) => {
@@ -123,8 +126,15 @@ export default function PostForm({ post }) {
                     className="mb-4 text-sm sm:text-base"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full text-sm sm:text-base">
-                    {post ? "Update" : "Submit"}
+
+                {/* ✅ Button shows loading text when submitting */}
+                <Button
+                    type="submit"
+                    bgColor={post ? "bg-green-500" : undefined}
+                    className="w-full text-sm sm:text-base"
+                    disabled={loading} // ✅ Disable button when loading
+                >
+                    {loading ? "Creating Post..." : post ? "Update" : "Submit"}
                 </Button>
             </div>
         </form>

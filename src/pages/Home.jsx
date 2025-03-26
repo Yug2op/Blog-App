@@ -43,8 +43,8 @@ function Home() {
                     </div>
                 ) : (
                     <div className='flex justify-center items-center py-16'>
-                        <p className='text-xl font-semibold text-gray-400'>
-                            Searching for posts... Please wait.
+                        <p className='text-xl font-semibold text-primary'>
+                            No one posted yet. <br /> Be the First One to Post.
                         </p>
                     </div>
                 )}

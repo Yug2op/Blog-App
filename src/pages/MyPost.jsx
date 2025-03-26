@@ -70,7 +70,7 @@ function MyPosts() {
                     </div>
                 ) : (
                     <div className="flex justify-center items-center h-40">
-                        <p className="text-lg sm:text-xl font-semibold text-gray-400">
+                        <p className="text-lg sm:text-xl font-semibold text-primary">
                             No posts found for this account.
                         </p>
                     </div>
