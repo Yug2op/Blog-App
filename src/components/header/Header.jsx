@@ -23,22 +23,13 @@ function Header() {
   return (
     <header className="bg-gradient-to-r from-blue-500 to-indigo-900 text-white shadow-md">
       <Container>
-        <nav className="flex items-center justify-between py-3 px-4 md:px-6 relative">
+        <nav className="flex items-center justify-between py-3 px-4 md:px-6 relative ">
 
           {/* Logo (Left) */}
-          <div className="flex items-center">
-            <Link to="/">
+          <div className="flex items-center ">
+            
               <Logo width="50px" className="sm:w-16 md:w-20" />
-            </Link>
-          </div>
-
-          {/* Blog App Title (Centered) */}
-          <div className="flex-1 text-center">
-            <Link to="/">
-              <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-pink-400 hover:text-pink-600 transition-colors duration-200">
-                Blog App
-              </h2>
-            </Link>
+           
           </div>
 
           {/* Desktop Navigation Links (Right) */}
@@ -49,11 +40,10 @@ function Header() {
                   <li key={item.name}>
                     <Link
                       to={item.slug}
-                      className={`pb-1 transition-colors duration-200 text-base lg:text-lg font-medium ${
-                        location.pathname === item.slug
+                      className={`pb-1 transition-colors duration-200 text-base lg:text-lg font-medium ${location.pathname === item.slug
                           ? "text-red-400 border-b-2 border-red-400"
                           : "text-white hover:text-blue-300"
-                      }`}
+                        }`}
                     >
                       {item.name}
                     </Link>
@@ -80,7 +70,7 @@ function Header() {
                 className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
-                stroke="currentColor"
+                stroke="lightgreen"
               >
                 <path
                   strokeLinecap="round"

@@ -4,8 +4,7 @@ function Logo({ width = '100px' }) {
   return (
     <div className="flex items-center justify-center">
       <div
-        className="font-bold text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl 
-                   hover:text-blue-400 transition-all duration-200"
+        className="font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl"
         style={{
           width: width,
           height: width,
@@ -14,7 +13,24 @@ function Logo({ width = '100px' }) {
           justifyContent: 'center',
         }}
       >
-        LOGO
+        <span style={{
+          color:'yellow',
+        }}>B</span>
+        <span style={{
+          color:'orange',
+        }}>L</span>
+        <span style={{
+          color:'pink',
+        }}>O</span>
+        <span style={{
+          color:'lightgreen',
+        }}>G</span>
+        <span style={{
+          color:'black',
+          fontSize:'2rem',
+          margin:'0px 0px 8px 0px'
+        }}>.</span>
+        
       </div>
     </div>
   );

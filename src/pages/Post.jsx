@@ -35,9 +35,6 @@ export default function Post() {
         });
     };
 
-    console.log("User Data:", userData);
-    console.log("Post Data:", post);
-
     return post ? (
         <div className="py-10">
             <Container>
