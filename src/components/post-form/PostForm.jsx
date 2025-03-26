@@ -18,6 +18,11 @@ export default function PostForm({ post }) {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData.userData);
     const [loading, setLoading] = useState(false); // ✅ Add loading state
+    if (!userData) {
+        console.error("User data is not available. Redirecting to login...");
+        // navigate("/login"); // Redirect to login page if user data is missing
+        return null;
+    }
 
     const submit = async (data) => {
         setLoading(true); // ✅ Show loading when submitting
@@ -35,7 +40,7 @@ export default function PostForm({ post }) {
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
                 featuredImage: fileId,
-                userId: userData.$id,
+                userId: userData?.$id,
             });
 
             if (dbPost) {
