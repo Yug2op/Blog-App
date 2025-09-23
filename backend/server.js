@@ -14,11 +14,8 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors({ 
-    origin: [
-        'http://localhost:5173',
-        'https://blog-app-lyart-mu.vercel.app'
-    ], // Allow both local and deployed frontend origins
+app.use(cors({
+    origin: true, // Allow all origins
     credentials: true // Allow cookies to be sent
 }));
 // app.use((req, res, next) => {
