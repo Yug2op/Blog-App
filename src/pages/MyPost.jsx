@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, PostCard } from '../components';
-import appwriteService from "../appwrite/config";
-import { Query } from 'appwrite';
-import authService from '../appwrite/auth';
+import apiService from "../services/apiService"; // New API service
+// import { Query } from 'appwrite'; // Not needed anymore
+import authService from '../services/authService'; // New Auth service
 
 function MyPosts() {
     const [posts, setPosts] = useState([]);
@@ -12,20 +12,16 @@ function MyPosts() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const user = await authService.getCurrentUser();
-                if (!user) {
-                    setError("User not found. Please log in.");
-                    setLoading(false);
-                    return;
-                }
+                // The authService.getCurrentUser() is called in the backend middleware
+                // For the frontend, we just need to ensure a user is logged in,
+                // then call getMyPosts, which will use the cookie.
 
-                const userId = user.$id;
-                const response = await appwriteService.getPosts([Query.equal("userId", userId)]);
+                const response = await apiService.getMyPosts();
 
-                setPosts(response?.documents || []);
+                setPosts(response.data || []);
             } catch (err) {
                 console.error('Error fetching posts:', err);
-                setError('Failed to load posts. Please try again.');
+                setError(err.response ? err.response.data.message : 'Failed to load posts. Please try again.');
             } finally {
                 setLoading(false);
             }
@@ -65,7 +61,7 @@ function MyPosts() {
                 {posts.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {posts.map((post) => (
-                            <PostCard key={post.$id} {...post} />
+                            <PostCard key={post._id} {...post} />
                         ))}
                     </div>
                 ) : (

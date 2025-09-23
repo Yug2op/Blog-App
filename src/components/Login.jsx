@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login as authLogin } from '../store/authSlice';
 import { Button, Input, Logo } from './index';
 import { useDispatch } from 'react-redux';
-import authService from '../appwrite/auth';
+import toast from 'react-hot-toast'; // Import toast
+import authService from '../services/authService'; // Updated import path
 import { useForm } from 'react-hook-form';
 
 function Login() {
@@ -19,10 +20,12 @@ function Login() {
       if (session) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(authLogin(userData));
+        toast.success('Logged in successfully!'); // Toast on successful login
         navigate('/');
       }
     } catch (error) {
-      setError(error.message);
+      setError(error || "An unknown error occurred");
+      toast.error(error || "An unknown error occurred"); // Toast on error
     }
   };
 

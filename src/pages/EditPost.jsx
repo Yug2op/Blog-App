@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, PostForm } from "../components";
-import appwriteService from "../appwrite/config";
+import apiService from "../services/apiService"; // Using new apiService
 import { useNavigate, useParams } from "react-router-dom";
 
 function EditPost() {
@@ -10,10 +10,13 @@ function EditPost() {
 
     useEffect(() => {
         if (slug) {
-            appwriteService.getPost(slug).then((post) => {
-                if (post) {
-                    setPost(post);
+            apiService.getPost(slug).then((response) => {
+                if (response.data) {
+                    setPost(response.data);
                 }
+            }).catch(error => {
+                console.error("Error fetching post for edit:", error);
+                navigate("/"); // Navigate home on error
             });
         } else {
             navigate("/");

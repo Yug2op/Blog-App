@@ -1,17 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import { Container, PostCard } from '../components'
-import appwriteService from "../appwrite/config";
+import apiService from "../services/apiService"; // Using new apiService
 
 function AllPosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true);
-    useEffect(() => {}, [])
-    appwriteService.getPosts([]).then((posts) => {
-        if (posts) {
-            setPosts(posts.documents)
-        }
-        setLoading(false);
-    })
+    useEffect(() => {
+        apiService.getAllPosts().then((response) => {
+            if (response.data) {
+                setPosts(response.data)
+            }
+        }).finally(() => setLoading(false));
+    }, [])
+    
+    // Removed the redundant appwriteService call outside useEffect
 
     if (loading) {
         // Show a loading indicator while fetching posts

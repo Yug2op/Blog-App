@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import appwriteService from "../appwrite/config"; // Using config.js for posts
-import authService from "../appwrite/auth"; // Using auth.js for authentication
+import apiService from "../services/apiService"; // Using new apiService
+import authService from "../services/authService"; // Using new authService
 import { Container, PostCard } from '../components';
 
 function Home() {
@@ -11,9 +11,9 @@ function Home() {
 
     useEffect(() => {
         // Fetch all posts
-        appwriteService.getPosts().then((posts) => {
-            if (posts) {
-                setPosts(posts.documents);
+        apiService.getAllPosts().then((response) => {
+            if (response.data) {
+                setPosts(response.data);
             }
         });
 
@@ -21,12 +21,12 @@ function Home() {
         authService.isLoggedIn().then(setIsLoggedIn);
     }, []);
 
-    const handlePostClick = (postId) => {
+    const handlePostClick = (postSlug) => {
         if (!isLoggedIn) {
             alert("Please log in to view this post.");
             navigate('/login'); // Redirect to login page
         } else {
-            navigate(`/post/${postId}`); // Navigate to full post page
+            navigate(`/post/${postSlug}`); // Navigate to full post page
         }
     };
 
@@ -36,8 +36,8 @@ function Home() {
                 {posts.length > 0 ? (
                     <div className='flex flex-wrap'>
                         {posts.map((post) => (
-                            <div key={post.$id} className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
-                                <PostCard {...post} onClick={() => handlePostClick(post.$id)} />
+                            <div key={post._id} className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
+                                <PostCard {...post} onClick={() => handlePostClick(post.slug)} />
                             </div>
                         ))}
                     </div>

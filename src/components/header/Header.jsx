@@ -40,9 +40,9 @@ function Header() {
                   <li key={item.name}>
                     <Link
                       to={item.slug}
-                      className={`pb-1 transition-colors duration-200 text-base lg:text-lg font-medium ${location.pathname === item.slug
-                          ? "text-red-400 border-b-2 border-red-400"
-                          : "text-white hover:text-blue-300"
+                      className={`pb-1 transition-colors duration-200 text-base lg:text-lg font-medium no-underline ${location.pathname === item.slug
+                          ? "text-[tomato]"
+                          : "text-white hover:text-blue-300"}
                         }`}
                     >
                       {item.name}

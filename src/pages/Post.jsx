@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import appwriteService from "../appwrite/config";
+import apiService from "../services/apiService"; // Using new apiService
 import { Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import toast from 'react-hot-toast'; // Import toast
 
 export default function Post() {
     const [post, setPost] = useState(null);
@@ -12,13 +13,16 @@ export default function Post() {
 
     const userData = useSelector((state) => state.auth.userData);
     const isLoggedIn = !!userData;
-    const isAuthor = post && userData ? post?.userId === userData?.userData?.$id : false;
+    const isAuthor = post && userData ? String(post?.userId?._id) === String(userData?._id) : false;
 
     useEffect(() => {
         if (slug) {
-            appwriteService.getPost(slug).then((post) => {
-                if (post) setPost(post);
+            apiService.getPost(slug).then((response) => {
+                if (response.data) setPost(response.data);
                 else navigate("/");
+            }).catch(error => {
+                console.error("Error fetching post:", error);
+                navigate("/");
             });
         } else navigate("/");
     }, [slug, navigate]);
@@ -27,11 +31,15 @@ export default function Post() {
         e.stopPropagation(); // Prevent event bubbling
         if (!post) return; // Ensure post exists before deleting
 
-        appwriteService.deletePost(post.$id).then((status) => {
-            if (status) {
-                appwriteService.deleteFile(post.featuredImage);
+        apiService.deletePost(post.slug).then((response) => {
+            if (response.status === 200) {
+                // Image deletion is handled by backend now
                 navigate("/");
+                toast.success("Post deleted successfully!");
             }
+        }).catch(error => {
+            console.error("Error deleting post:", error);
+            toast.error("Failed to delete post.");
         });
     };
 
@@ -43,7 +51,7 @@ export default function Post() {
                     {/* Background Image */}
                     <div className="relative rounded-2xl overflow-hidden shadow-lg">
                         <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
+                            src={post.featuredImage} // Direct Cloudinary URL from backend
                             alt={post.title}
                             className="w-full h-96 object-cover transition-transform duration-300 group-hover:scale-105"
                         />
@@ -53,15 +61,14 @@ export default function Post() {
                             <div
                                 className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-auto"
                             >
-                                <Link to={`/edit-post/${post.$id}`} onClick={(e) => e.stopPropagation()}>
+                                <Link to={`/edit-post/${post.slug}`} onClick={(e) => e.stopPropagation()}>
                                     <button className="px-3 py-1 text-xs sm:text-sm border border-green-500 text-green-500 hover:bg-green-500 hover:text-white rounded-full transition duration-300">
                                         Edit
                                     </button>
                                 </Link>
                                 <button
                                     onClick={deletePost}
-                                    className="px-3 py-1 text-xs sm:text-sm border border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-full transition duration-300"
-                                >
+                                    className="px-3 py-1 text-xs sm:text-sm border border-red-500 text-red-500 hover:bg-red-500 hover:text-white rounded-full transition duration-300">
                                     Delete
                                 </button>
                             </div>

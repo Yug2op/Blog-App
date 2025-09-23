@@ -1,22 +1,23 @@
 import React, { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "..";
-import appwriteService from "../../appwrite/config";
+import apiService from "../../services/apiService"; // Using new apiService
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import toast from 'react-hot-toast'; // Import toast
 
 export default function PostForm({ post }) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
-            slug: post?.$id || "",
+            slug: post?.slug || "", // Use post.slug here
             content: post?.content || "",
             status: post?.status || "active",
         },
     });
 
     const navigate = useNavigate();
-    const userData = useSelector((state) => state.auth.userData.userData);
+    const userData = useSelector((state) => state.auth.userData);
     const [loading, setLoading] = useState(false); // ✅ Add loading state
     if (!userData) {
         console.error("User data is not available. Redirecting to login...");
@@ -27,40 +28,46 @@ export default function PostForm({ post }) {
     const submit = async (data) => {
         setLoading(true); // ✅ Show loading when submitting
 
-        let fileId = null;
-        if (post) {
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
-            if (file) {
-                appwriteService.deleteFile(post.featuredImage);
-                fileId = file.$id;
-            } else {
-                fileId = post.featuredImage;
-            }
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('slug', data.slug);
+        formData.append('content', data.content);
+        formData.append('status', data.status);
 
-            const dbPost = await appwriteService.updatePost(post.$id, {
-                ...data,
-                featuredImage: fileId,
-                userId: userData?.$id,
-            });
-
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`);
-            }
-        } else {
-            const file = await appwriteService.uploadFile(data.image[0]);
-
-            if (file) {
-                fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({ ...data, featuredImage: fileId, userId: userData.$id });
-
-                if (dbPost) {
-                    navigate(`/post/${dbPost.$id}`);
-                }
-            }
+        if (data.image && data.image[0]) {
+            formData.append('featuredImage', data.image[0]);
         }
 
-        setLoading(false); // ✅ Hide loading after completion
+        try {
+            let dbPost;
+            let successMessage = "";
+            if (post) {
+                // Update post
+                dbPost = await apiService.updatePost(post.slug, formData);
+                successMessage = "Post updated successfully!";
+            } else {
+                // Create post
+                dbPost = await apiService.createPost(formData);
+                successMessage = "Post created successfully!";
+            }
+
+            if (dbPost.data) {
+                navigate(`/post/${dbPost.data.slug}`);
+                toast.success(successMessage);
+            } else {
+                // Handle cases where dbPost.data might be null/undefined on error
+                console.error("Post operation failed: No data in response.");
+                setError("Failed to create/update post. Please try again.");
+                toast.error("Failed to create/update post. Please try again.");
+            }
+        } catch (error) {
+            console.error("Post operation error:", error.response ? error.response.data : error.message);
+            // Set error message based on backend response
+            setError(error.response ? error.response.data.message : "An unexpected error occurred.");
+            toast.error(error.response ? error.response.data.message : "An unexpected error occurred.");
+        } finally {
+            setLoading(false); // ✅ Hide loading after completion
+        }
     };
 
     const slugTransform = useCallback((value) => {
@@ -119,7 +126,7 @@ export default function PostForm({ post }) {
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
+                            src={post.featuredImage} // Direct Cloudinary URL
                             alt={post.title}
                             className="rounded-lg w-full h-auto max-h-60 object-cover"
                         />
@@ -142,6 +149,7 @@ export default function PostForm({ post }) {
                     {loading ? "Creating Post..." : post ? "Update" : "Submit"}
                 </Button>
             </div>
+
         </form>
     );
 }
