@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
             httpOnly: true,
             expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
             secure: process.env.NODE_ENV === 'production', // Use secure in production
-            sameSite: 'Strict',
+            sameSite: 'Lax',
         });
 
         res.json({
@@ -100,7 +100,7 @@ router.post('/logout', protect, (req, res) => {
         httpOnly: true,
         expires: new Date(0),
         secure: process.env.NODE_ENV === 'production', // Use secure in production
-        sameSite: 'Strict',
+        sameSite: 'Lax',
     });
     res.status(200).json({ message: 'Logged out successfully' });
 });
