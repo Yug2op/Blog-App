@@ -19,6 +19,7 @@ export default function PostForm({ post }) {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
     const [loading, setLoading] = useState(false); // ✅ Add loading state
+    const [error, setError] = useState(null);
     if (!userData) {
         console.error("User data is not available. Redirecting to login...");
         // navigate("/login"); // Redirect to login page if user data is missing
