@@ -70,8 +70,8 @@ router.post('/login', async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-            secure: process.env.NODE_ENV === 'production', // Use secure in production
-            sameSite: 'Lax',
+            secure: true, // Use secure in production
+            sameSite: 'None',
         });
 
         res.json({
@@ -99,8 +99,8 @@ router.post('/logout', protect, (req, res) => {
     res.cookie('token', '', {
         httpOnly: true,
         expires: new Date(0),
-        secure: process.env.NODE_ENV === 'production', // Use secure in production
-        sameSite: 'Lax',
+        secure: true, // Use secure in production
+        sameSite: 'None',
     });
     res.status(200).json({ message: 'Logged out successfully' });
 });
